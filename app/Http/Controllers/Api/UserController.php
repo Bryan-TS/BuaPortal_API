@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-        public function index()
+    public function login(Request $request){
+        $user =     User::select('id','email')
+                    ->where('email',$request->email)
+                    ->first();
+
+        $token = hash('sha256', $user->email);
+        return $token;
+    }
+
+    public function index()
     {
         $users = User::all();
         return $users;

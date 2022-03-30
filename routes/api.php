@@ -24,6 +24,8 @@ Route::controller(UserController::class)->group(function(){
     Route::put('/user/{id}','update');
     Route::delete('/user/{id}','destroy');
 
+    Route::post('/user/login','login');
+
     Route::put('/test/{id}', function () {
         return "asdasdasd";
     });

@@ -6,15 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class UserController extends Controller
 {
     public function login(Request $request){
         $user =     User::select('id','email')
                     ->where('email',$request->email)
+                    ->where('password',$request->password)
                     ->first();
 
-        $token = hash('sha256', $user->email);
-        return $token;
+        if($user !== null){
+            $token = hash('sha256', $user->email);
+            return $token;
+        }else{
+            return $response['status'] = "401";
+        }
+
+        
     }
 
     public function index()

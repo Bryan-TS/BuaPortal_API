@@ -11,14 +11,14 @@ use function PHPUnit\Framework\isEmpty;
 class UserController extends Controller
 {
     public function login(Request $request){
-        $user =     User::select('id','email')
+        $user =     User::select('id','email','name','lastName','description')
                     ->where('email',$request->email)
                     ->where('password',$request->password)
                     ->first();
 
         if($user !== null){
-            $token = hash('sha256', $user->email);
-            return $token;
+            // $token = hash('sha256', $user->email);
+            return $user;
         }else{
             return $response['status'] = "401";
         }

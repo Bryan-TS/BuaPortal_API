@@ -29,18 +29,27 @@ class QuestionController extends Controller
 
     public function show($id)
     {
-        //
+        $question = Question::find($id);
+        return $question;
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::findOrFail($id);
+        $question->category = $request->category;
+        $question->title = $request->title;
+        $question->description = $request->description;
+
+        $question->save();
+
+        return $question;
     }
 
     public function destroy($id)
     {
-        //
+        $question = Question::destroy($id);
+        return $question;
     }
 
     public function questionsByUser($id)
